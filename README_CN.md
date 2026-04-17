@@ -5,7 +5,7 @@
 🚀 本示例基于 RTL8721Dx 系列 SoC，演示系统进入低功耗模式后，通过 GPIO 下降沿信号唤醒 CPU 的完整流程。
 
 - 📎 开发板链接  [🛒 淘宝](https://item.taobao.com/item.htm?id=904981157046) | [📦 Amazon](https://www.amazon.com/-/zh/dp/B0FB33DT2C/)
-- 📄 [芯片详情](https://aiot.realmcu.com/cn/module/index.html)
+- 📄 [芯片详情](https://aiot.realmcu.com/zh/module/rtl8721dx.html)
 - 📚 [GPIO 唤醒文档](https://aiot.realmcu.com/cn/latest/rtos/ps/powertest/index.html#gpio)
 
 ---
@@ -45,44 +45,32 @@
 
 ### 🚀 快速开始
 
-1️⃣ **配置 SDK 环境**
+1️⃣ **选择SDK**  
+   - 设置`env.sh`（`env.bat`）路径：`source {sdk}/env.sh`  
+   - 将`{sdk}`替换为[ameba-rtos SDK](https://github.com/Ameba-AIoT/ameba-rtos)根目录中`env.sh`的绝对路径。如果SDK路径没有改变，此步骤仅需执行一次。
 
-- 设置 `env.sh`（或 `env.bat`）路径：
+   ⚡ **注意**：本示例仅支持 SDK 版本 **≥ v1.2**
 
-  ```bash
-  source {sdk}/env.sh
-  ```
+2️⃣ **编译**  
+   - 在当前工程目录下执行：  
+     ```bash
+     source env.sh
+     ameba.py build -p
+     ```
 
-- 将 `{sdk}` 替换为 [ameba-rtos SDK](https://github.com/Ameba-AIoT/ameba-rtos) 根目录中 `env.sh` 的绝对路径。  
-- 如果 SDK 路径未改变，此步骤仅需执行一次。
+3️⃣ **烧录固件**
+   >请将命令中的 `COMx` 替换为实际串口号（例如 `COM5`）
+   ```bash
+   ameba.py flash --p COMx --image km4_boot_all.bin 0x08000000 0x8014000 --image km0_km4_app.bin 0x08014000 0x8200000
+   ```
+   ⚡ **Note**: 项目目录中提供的预编译bin文件也可以用如下方式烧录：
+   ```bash
+   ameba.py flash --p COMx --image ../km4_boot_all.bin 0x08000000 0x8014000 --image ../km0_km4_app.bin 0x08014000 0x8200000
+   ```
 
-⚡ **注意**：本示例仅支持 SDK 版本 **≥ v1.2**
+4️⃣ **打开串口监视**  
+   - `ameba.py monitor --port COMx --b 1500000`
 
-
-2️⃣ **编译工程**
-
-在本示例所在的当前工程目录下执行：
-
-```bash
-source env.sh
-ameba.py build
-```
-
-3️⃣ **烧录到开发板**
-
-⚡ **注意**：本项目目录已提供预编译的 bin 文件，可直接烧录：
-
-```bash
-ameba.py flash --p COMx --image km4_boot_all.bin 0x08000000 0x8014000 --image km0_km4_app.bin 0x08014000 0x8200000
-```
-
-> 将 `COMx` 修改为实际串口号，例如 `COM5`，如需使用上一级目录的 bin，可按实际路径调整命令。
-
-4️⃣ **打开串口监视器**
-
-```bash
-ameba.py monitor --port COMx --b 1500000
-```
 
 5️⃣ **触发唤醒并对比实验结果** 🔁  
 

@@ -5,7 +5,7 @@
 🚀 This example is based on the RTL8721Dx series SoC and demonstrates how the system enters a low-power mode and is then woken up by a GPIO falling-edge signal.
 
 - 📎 EVB Purchase Links  [🛒 Taobao](https://item.taobao.com/item.htm?id=904981157046) | [📦 Amazon](https://www.amazon.com/-/zh/dp/B0FB33DT2C/)
-- 📄 [Chip Information](https://aiot.realmcu.com/cn/module/index.html)
+- 📄 [Chip Information](https://aiot.realmcu.com/zh/module/rtl8721dx.html)
 - 📚 [GPIO Wakeup Documentation](https://aiot.realmcu.com/cn/latest/rtos/ps/powertest/index.html#gpio)
 
 ---
@@ -47,44 +47,33 @@
 
 ### 🚀 Quick Start
 
-1️⃣ **Set Up SDK Environment**
 
-- Configure the `env.sh` (or `env.bat`) path:
+1️⃣ **Select SDK**  
+   - Set the path for `env.sh` (`env.bat`): `source {sdk}/env.sh`  
+   - Replace `{sdk}` with the absolute path to `env.sh` in the root directory of the [ameba-rtos SDK](https://github.com/Ameba-AIoT/ameba-rtos). This step only needs to be performed once if the SDK path remains unchanged.
 
-  ```bash
-  source {sdk}/env.sh
-  ```
+2️⃣ **Build**  
+   - Execute the following in the demo example directory:  
+     ```bash
+     source env.sh
+     ameba.py build -p
+     ```
 
-- Replace `{sdk}` with the absolute path to `env.sh` in the root directory of the [ameba-rtos SDK](https://github.com/Ameba-AIoT/ameba-rtos).  
-- If the SDK path does not change, this step only needs to be done once.
-
-⚡ **Note**: This example supports SDK version **≥ v1.2**.
-
-2️⃣ **Build the Project**
-
-In the example demo directory, run:
-
-```bash
-source env.sh
-ameba.py build
-```
-
-3️⃣ **Flash to the EVB**
-
-⚡ **Note**: Precompiled bin files are provided in this project directory and can be flashed directly:
+3️⃣ **Burning the Firmware**  
+   > Replace `COMx` with your actual serial port (for example, `COM5`).
 
 ```bash
 ameba.py flash --p COMx --image km4_boot_all.bin 0x08000000 0x8014000 --image km0_km4_app.bin 0x08014000 0x8200000
 ```
 
-> Replace `COMx` with your actual serial port, e.g. `COM5`.  
-> If you want to use bin files from the parent directory, adjust the paths accordingly.
-
-4️⃣ **Open Serial Monitor**
+ ⚡ **Note**: If you want to use the **prebuilt binaries** provided in the project directory (parent folder), run:
 
 ```bash
-ameba.py monitor --port COMx --b 1500000
+ameba.py flash --p COMx --image ../km4_boot_all.bin 0x08000000 0x8014000 --image ../km0_km4_app.bin 0x08014000 0x8200000
 ```
+
+4️⃣ **Monitor**  
+   - `ameba.py monitor --port COMx --b 1500000`
 
 5️⃣ **Press RESET and Compare Results** 🔁  
 
